@@ -40,7 +40,7 @@ namespace MylaFlower
             On.DeactivateIfPlayerdataFalse.OnEnable += OverrideMylaState;
 
             // Change myla dialogue?
-            On.PlayMakerFSM.OnEnable += ModifyMylaFsms;
+            On.PlayMakerFSM.OnEnable += ModifyMylaFsms;     // TODO: Add a dialogue to healthy myla
             Dialogue.Hook();
 
             // Change sprite
@@ -75,10 +75,12 @@ namespace MylaFlower
             {
                 EditCrazyMylaFsm(self);
 
+#if DEBUG
                 foreach (FsmState state in self.FsmStates)
                 {
                     state.InsertMethod(0, () => Log($"STATE: {state.Name}"));
                 }
+#endif
             }
         }
 
@@ -91,8 +93,8 @@ namespace MylaFlower
             FsmState acceptFlower = fsm.CopyState("Box Down", "Accept Flower");
             FsmState declineFlower = fsm.CopyState("Box Down", "Decline Flower");
 
-            AddMylaConvoState("Flower Convo", "Flower Box Down", "FLOWER_OFFER");
-            FsmState acceptConvo = AddMylaConvoState("Accept Convo", "Talk Finish", "GIVEN_FLOWER");
+            AddMylaConvoState("Flower Convo", "Flower Box Down", "FLOWER_OFFER", "Repeat");
+            FsmState acceptConvo = AddMylaConvoState("Accept Convo", "Talk Finish", "GIVEN_FLOWER");    // TODO: Make healthy myla noise here
             AddMylaConvoState("Decline Convo", "Talk Finish", "NOT_GIVEN_FLOWER");
             AddBoxUpState("Accept Convo Box Up", "Accept Convo");
             AddBoxUpState("Decline Convo Box Up", "Decline Convo");
@@ -144,13 +146,18 @@ namespace MylaFlower
             acceptFlower.Transitions = Array.Empty<FsmTransition>();
             acceptFlower.AddTransition("FINISHED", "Accept Convo Box Up");
 
-            acceptConvo.InsertMethod(0, () => LS.DeliveredFlower = true);
-
-
-
-            FsmState AddMylaConvoState(string stateName, string targetState, string convoName)
+            // TODO - a giving flower anim of some sort
+            acceptConvo.InsertMethod(0, () =>
             {
-                FsmState newState = fsm.CopyState("Greet", stateName);
+                LS.DeliveredFlower = true;
+                PlayerData.instance.SetBool(nameof(PlayerData.hasXunFlower), false);
+            });
+
+
+
+            FsmState AddMylaConvoState(string stateName, string targetState, string convoName, string origTarget = "Greet")
+            {
+                FsmState newState = fsm.CopyState(origTarget, stateName);
                 CallMethodProper cmp = newState.GetAction<CallMethodProper>();
                 cmp.parameters[0].stringValue = convoName;
                 cmp.parameters[1].stringValue = Consts.LanguageSheet;
