@@ -38,11 +38,13 @@ namespace MylaFlower
                 return "C-can I take it ....DESTROY IT.... Is it offered....DONT TOUCH IT...C-can I take it.... KILL IT....Is it offered.....DANGEROUS";
             }
 
-            // Handle healthy Myla
-            /*
             if (sheetTitle == "Minor NPC"
-                && key == "")
-            */
+                && key == "MINER_EARLY_3"
+                && MylaFlower.GetMylaState() == MylaState.Normal)
+            {
+                return "Oh hello there friend! Look, your present makes a w-wonderful headlamp. Now I can always have it with me. Thank you again!";
+            }
+
             return orig;
         }
     }

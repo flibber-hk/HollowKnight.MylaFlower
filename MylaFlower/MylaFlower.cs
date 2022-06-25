@@ -40,7 +40,7 @@ namespace MylaFlower
             On.DeactivateIfPlayerdataFalse.OnEnable += OverrideMylaState;
 
             // Change myla dialogue?
-            On.PlayMakerFSM.OnEnable += ModifyMylaFsms;     // TODO: Add a dialogue to healthy myla
+            On.PlayMakerFSM.OnEnable += ModifyMylaFsms;
             Dialogue.Hook();
 
             // Change sprite
@@ -70,14 +70,29 @@ namespace MylaFlower
                 && GetMylaState() == MylaState.Crazy)
             {
                 EditCrazyMylaFsm(self);
-
-#if DEBUG
-                foreach (FsmState state in self.FsmStates)
-                {
-                    state.InsertMethod(0, () => Log($"STATE: {state.Name}"));
-                }
-#endif
             }
+
+            if (self.gameObject.name == Consts.NormalMyla
+                && self.FsmName == Consts.ConvoFsmName
+                && self.gameObject.scene.name == Consts.MylaScene
+                && GetMylaState() == MylaState.Normal)
+            {
+                EditNormalMylaFsm(self);
+            }
+        }
+
+        private void EditNormalMylaFsm(PlayMakerFSM self)
+        {
+            // Only path: Convo Choice -> Early Choice -> Early 3 (custom text changed by language hook)
+            FsmState convoChoice = self.GetState("Convo Choice");
+            FsmState earlyChoice = self.GetState("Early Choice");
+            FsmState early3 = self.GetState("Early 3");
+            
+            convoChoice.Transitions = Array.Empty<FsmTransition>();
+            convoChoice.AddTransition(FsmEvent.Finished, earlyChoice.Name);
+
+            earlyChoice.Transitions = Array.Empty<FsmTransition>();
+            earlyChoice.AddTransition(FsmEvent.Finished, early3.Name);
         }
 
         private void EditCrazyMylaFsm(PlayMakerFSM fsm)
@@ -176,10 +191,6 @@ namespace MylaFlower
                 return newState;
             }
         }
-
-
-
-
 
 
         #region Myla State
