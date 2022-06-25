@@ -47,10 +47,6 @@ namespace MylaFlower
             UnityEngine.SceneManagement.SceneManager.activeSceneChanged += ReplaceMylaSprite;
         }
 
-
-
-
-
         private void ReplaceMylaSprite(Scene _, Scene scene)
         {
             if (scene.name == Consts.MylaScene && LS.DeliveredFlower)
@@ -122,7 +118,7 @@ namespace MylaFlower
                     PlayMakerFSM dialoguePageControl = textYN.LocateMyFSM("Dialogue Page Control");
                     dialoguePageControl.FsmVariables.GetFsmInt("Toll Cost").Value = 0;
                     dialoguePageControl.FsmVariables.GetFsmGameObject("Requester").Value = fsm.gameObject;
-                    textYN.GetComponent<DialogueBox>().StartConversation("FLOWER_OFFER_YN", Consts.LanguageSheet);
+                    textYN.GetComponent<DialogueBox>().StartConversation("FLOWER_OFFER_YN", Consts.CustomLanguageSheet);
                 })
             };
             sendTextYN.Transitions = Array.Empty<FsmTransition>();
@@ -154,13 +150,12 @@ namespace MylaFlower
             });
 
 
-
             FsmState AddMylaConvoState(string stateName, string targetState, string convoName, string origTarget = "Greet")
             {
                 FsmState newState = fsm.CopyState(origTarget, stateName);
                 CallMethodProper cmp = newState.GetAction<CallMethodProper>();
                 cmp.parameters[0].stringValue = convoName;
-                cmp.parameters[1].stringValue = Consts.LanguageSheet;
+                cmp.parameters[1].stringValue = Consts.CustomLanguageSheet;
 
                 newState.Transitions[0].ToFsmState = fsm.GetState(targetState);
                 newState.Transitions[0].ToState = targetState;
@@ -225,18 +220,33 @@ namespace MylaFlower
             orig(self);
         }
 
+        /// <summary>
+        /// Returns the current state of Myla.
+        /// - If Myla has received the flower, then returns Normal.
+        /// - If Myla has not received the flower but can be offered it, returns Crazy.
+        /// - If Myla has not received the flower and the player does not have the flower but does have cdash, returns Zombie.
+        /// - If the player has already killed Myla, returns Zombie.
+        /// - If the player does not have cdash (and has not given the flower - this can only matter if they previously had cdash), 
+        /// then the mod is not in effect; returns null.
+        /// </summary>
         public static MylaState? GetMylaState()
         {
+            if (LS.DeliveredFlower)
+            {
+                return MylaState.Normal;
+            }
+
             if (!PlayerData.instance.GetBool(nameof(PlayerData.hasSuperDash)))
             {
                 return null;
             }
 
-            if (LS.DeliveredFlower)
+            if (MylaKilled())
             {
-                return MylaState.Normal;
+                return MylaState.Zombie;
             }
-            else if (PlayerData.instance.GetBool(nameof(PlayerData.hasXunFlower)) 
+
+            if (PlayerData.instance.GetBool(nameof(PlayerData.hasXunFlower)) 
                 && !PlayerData.instance.GetBool(nameof(PlayerData.xunFlowerBroken)))
             {
                 return MylaState.Crazy;
@@ -264,6 +274,19 @@ namespace MylaFlower
             }
 
             return null;
+        }
+
+        internal static bool MylaKilled()
+        {
+            PersistentBoolData pbd = new()
+            {
+                id = Consts.ZombieMyla,
+                sceneName = Consts.MylaScene,
+            };
+
+            pbd = SceneData.instance?.FindMyState(pbd);
+
+            return pbd?.activated ?? false;
         }
         #endregion
     }

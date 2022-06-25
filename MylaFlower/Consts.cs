@@ -16,6 +16,6 @@ namespace MylaFlower
 
         public const string ConvoFsmName = "Conversation Control";
 
-        public const string LanguageSheet = "MYLA FLOWER";
+        public const string CustomLanguageSheet = "MYLA FLOWER";
     }
 }

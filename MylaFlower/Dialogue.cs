@@ -14,16 +14,36 @@ namespace MylaFlower
 
         private static string ChangeMylaDialogue(string key, string sheetTitle, string orig)
         {
-            if (sheetTitle != Consts.LanguageSheet) return orig;
-
-            return key switch
+            if (sheetTitle == Consts.CustomLanguageSheet)
             {
-                "FLOWER_OFFER" => "I see you have a flower for me nicole420Eyes",
-                "FLOWER_OFFER_YN" => "Give the flower?",
-                "GIVEN_FLOWER" => "Thanks for flower miikaLove",
-                "NOT_GIVEN_FLOWER" => "Why no give flower mathulPout",
-                _ => orig,
-            };
+                switch (key)
+                {
+                    case "FLOWER_OFFER":
+                        return "...Bury my body, stabbed w-with nail<br>Darkness encroaching<br>I wait for Light, and Light approaches<br>A pale, fragile vessel<br>Offered to the shadow within me";
+                    case "FLOWER_OFFER_YN":
+                        return "Give the flower?";
+                    case "GIVEN_FLOWER":
+                        return "Is this what was calling to me?<br>The aura quiets the voice<br>And breaks through the light and shade";
+                    case "NOT_GIVEN_FLOWER":
+                        return "...It is for the best...m-my mind...fractured... can't touch...too pure...";
+                }
+
+                MylaFlower.instance.LogWarn($"Unrecognized key for myla flower sheet: {key}");
+            }
+
+            if (sheetTitle == "Minor NPC" 
+                && key == "MINER_DREAM_2" 
+                && MylaFlower.GetMylaState() == MylaState.Crazy)
+            {
+                return "C-can I take it ....DESTROY IT.... Is it offered....DONT TOUCH IT...C-can I take it.... KILL IT....Is it offered.....DANGEROUS";
+            }
+
+            // Handle healthy Myla
+            /*
+            if (sheetTitle == "Minor NPC"
+                && key == "")
+            */
+            return orig;
         }
     }
 }
