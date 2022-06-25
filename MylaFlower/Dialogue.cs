@@ -42,7 +42,8 @@ namespace MylaFlower
                 && key == "MINER_EARLY_3"
                 && MylaFlower.GetMylaState() == MylaState.Normal)
             {
-                return "Oh hello there friend! Look, your present makes a w-wonderful headlamp. Now I can always have it with me. Thank you again!";
+                return "H-hello again, my friend! You just missed Schy, although I'm sure they're still here somewhere. Its like that with friends, isn't it?<br>They're always here, e-even when they're not.";
+                // return "Oh hello there friend! Look, your present makes a w-wonderful headlamp. Now I can always have it with me. Thank you again!";
             }
 
             return orig;
