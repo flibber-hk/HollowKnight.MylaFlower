@@ -1,10 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProjectGuid>{65D8DE40-305E-439B-822C-7B99094C1F48}</ProjectGuid>
     <TargetFramework>net472</TargetFramework>
     <RootNamespace>MylaFlower</RootNamespace>
     <AssemblyTitle>MylaFlower</AssemblyTitle>
-    <AssemblyVersion>0.1.0</AssemblyVersion>
+    <AssemblyVersion>0.9.0</AssemblyVersion>
     <Deterministic>true</Deterministic>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <LangVersion>latest</LangVersion>

@@ -1,4 +1,1 @@
-Randomizer 4
-RandomizerCore
-ItemChanger
-MenuChanger
+Vasi
