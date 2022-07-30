@@ -24,12 +24,9 @@ namespace MylaFlower
         {
             instance = this;
         }
-        
-        public override string GetVersion()
-        {
-            return GetType().Assembly.GetName().Version.ToString();
-        }
-        
+
+        public override string GetVersion() => VersionUtil.GetVersion<MylaFlower>();
+
         public override void Initialize()
         {
             Log("Initializing Mod...");
