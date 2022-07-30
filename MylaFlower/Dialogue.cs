@@ -35,7 +35,7 @@ namespace MylaFlower
                 && key == "MINER_DREAM_2" 
                 && MylaFlower.GetMylaState() == MylaState.Crazy)
             {
-                return "C-can I take it ....DESTROY IT.... Is it offered....DONT TOUCH IT...C-can I take it.... KILL IT....Is it offered.....DANGEROUS";
+                return "C-can I take it ....DESTROY IT.... Is it offered....DON'T TOUCH IT...C-can I take it.... KILL IT....Is it offered.....DANGEROUS";
             }
 
             if (sheetTitle == "Minor NPC"
