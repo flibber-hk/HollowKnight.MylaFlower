@@ -18,11 +18,11 @@ namespace MylaFlower
         public static SaveSettings LS { get; internal set; } = new();
         public void OnLoadLocal(SaveSettings s) => LS = s;
         public SaveSettings OnSaveLocal() => LS;
-
         
         public MylaFlower() : base(null)
         {
             instance = this;
+            Localization.LoadResources();
         }
 
         public override string GetVersion() => VersionUtil.GetVersion<MylaFlower>();
