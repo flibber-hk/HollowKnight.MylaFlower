@@ -13,14 +13,16 @@ namespace MylaFlower
 
         public Dictionary<string, List<string>> Data;
 
-        public string GetString(string key)
+        public bool TryGetString(string key, out string value)
         {
-            if (!Data.TryGetValue(key, out List<string> data))
+            if (!Data.TryGetValue(key, out List<string> data) || data.Count == 0)
             {
-                return $"%!%{key}%!%";
+                value = $"%!%{key}%!%";
+                return false;
             }
 
-            return data[_rng.Next(data.Count)];
+            value = data[_rng.Next(data.Count)];
+            return true;
         }
     }
 

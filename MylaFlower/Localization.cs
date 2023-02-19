@@ -85,20 +85,28 @@ namespace MylaFlower
 
         public static string GetText(string key)
         {
-            Locale data = GetBestAvailableSheet();
+            string value = string.Empty;
 
-            return data.GetString(key);
+            foreach (Locale data in GetAvailableSheets())
+            {
+                if (data.TryGetString(key, out value))
+                {
+                    return value;
+                }
+            }
+
+            return value;
         }
 
-        private static Locale GetBestAvailableSheet()
+        private static IEnumerable<Locale> GetAvailableSheets()
         {
             string lang = Language.Language.CurrentLanguage().ToString().ToUpperInvariant();
-            if (_localizationData.TryGetValue(lang, out Locale result)) return result;
+            if (_localizationData.TryGetValue(lang, out Locale result)) yield return result;
 
             string langMain = lang.Substring(0, 2);
-            if (_normalizedLocalizationData.TryGetValue(langMain, out Locale resultMain)) return resultMain;
+            if (_normalizedLocalizationData.TryGetValue(langMain, out Locale resultMain)) yield return resultMain;
 
-            return _localizationData["EN"];
+            yield return _localizationData["EN"];
         }
     }
 }
