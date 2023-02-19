@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Locale = System.Collections.Generic.Dictionary<string, string>;
 
 namespace MylaFlower
 {
@@ -88,7 +87,7 @@ namespace MylaFlower
         {
             Locale data = GetBestAvailableSheet();
 
-            return data[key];
+            return data.GetString(key);
         }
 
         private static Locale GetBestAvailableSheet()
