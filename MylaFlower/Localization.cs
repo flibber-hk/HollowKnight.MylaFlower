@@ -1,15 +1,19 @@
 ﻿using Modding;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using Locale = System.Collections.Generic.Dictionary<string, string>;
 
 namespace MylaFlower
 {
     internal static class Localization
     {
         private static readonly ILogger _logger = new SimpleLogger("MylaFlower.Localization");
-        private static Dictionary<string, Dictionary<string, string>> _localizationData;
+        private static Dictionary<string, Locale> _localizationData;
+        private static Dictionary<string, Locale> _normalizedLocalizationData;
 
         public static void LoadResources()
         {
@@ -17,16 +21,29 @@ namespace MylaFlower
 
             LoadEmbeddedResources();
             LoadLocalResources();
+            NormalizeLocalization();
+
+            _logger.LogDebug($"Current language: {Language.Language.CurrentLanguage()}");
         }
 
-        private static Dictionary<string, string> LoadFromStream(Stream s)
+        private static void NormalizeLocalization()
+        {
+            _normalizedLocalizationData = new();
+
+            foreach ((string key, Locale data) in _localizationData.OrderByDescending(kvp => kvp.Key))
+            {
+                _normalizedLocalizationData[key.Substring(0, 2)] = data;
+            }
+        }
+
+        private static Locale LoadFromStream(Stream s)
         {
             using StreamReader sr = new(s);
             using JsonTextReader jtr = new(sr);
 
             JsonSerializer js = new();
 
-            Dictionary<string, string> data = js.Deserialize<Dictionary<string, string>>(jtr);
+            Locale data = js.Deserialize<Locale>(jtr);
 
             return data;
         }
@@ -69,13 +86,20 @@ namespace MylaFlower
 
         public static string GetText(string key)
         {
-            string lang = Language.Language.CurrentLanguage().ToString().ToUpperInvariant();
-            if (!_localizationData.ContainsKey(lang))
-            {
-                lang = "EN";
-            }
+            Locale data = GetBestAvailableSheet();
 
-            return _localizationData[lang][key];
+            return data[key];
+        }
+
+        private static Locale GetBestAvailableSheet()
+        {
+            string lang = Language.Language.CurrentLanguage().ToString().ToUpperInvariant();
+            if (_localizationData.TryGetValue(lang, out Locale result)) return result;
+
+            string langMain = lang.Substring(0, 2);
+            if (_normalizedLocalizationData.TryGetValue(langMain, out Locale resultMain)) return resultMain;
+
+            return _localizationData["EN"];
         }
     }
 }
