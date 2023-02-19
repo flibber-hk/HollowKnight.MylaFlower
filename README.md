@@ -10,3 +10,15 @@ Thanks to
 - Gidge for writing the dialogue
 
 I streamed part of the making of this mod [here](https://www.twitch.tv/videos/1288451117).
+
+
+## Localization
+
+To provide a translation, simply make a copy of the file 
+[here](https://github.com/flibber-hk/HollowKnight.MylaFlower/tree/main/MylaFlower/Resources/lang/EN.json)
+with the right name and text translated.
+
+The file can be placed in the same directory as the mod, or sent to me (e.g. make a pull request) to add it to the download.
+
+Thanks to:
+- draculino for PT_BR
