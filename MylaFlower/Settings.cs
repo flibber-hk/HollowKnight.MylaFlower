@@ -10,4 +10,9 @@ namespace MylaFlower
     {
         public bool DeliveredFlower { get; set; } = false;
     }
+
+    public class GlobalSettings
+    {
+        public RandoConnection.RandoSettings RandoSettings { get; set; } = new();
+    }
 }

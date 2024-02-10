@@ -100,6 +100,25 @@
     <Reference Include="Vasi">
       <HintPath>$(HollowKnightRefs)\Mods\Vasi\Vasi.dll</HintPath>
     </Reference>
+
+    <Reference Include="ItemChanger">
+      <HintPath>$(HollowKnightRefs)\Mods\ItemChanger\ItemChanger.dll</HintPath>
+    </Reference>
+    <Reference Include="MenuChanger">
+      <HintPath>$(HollowKnightRefs)\Mods\MenuChanger\MenuChanger.dll</HintPath>
+    </Reference>
+    <Reference Include="RandomizerCore">
+      <HintPath>$(HollowKnightRefs)\Mods\RandomizerCore\RandomizerCore.dll</HintPath>
+    </Reference>
+    <Reference Include="RandomizerCore.Json">
+      <HintPath>$(HollowKnightRefs)\Mods\RandomizerCore.Json\RandomizerCore.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RandomizerMod" Condition="Exists('$(HollowKnightRefs)\Mods\RandomizerMod')">
+      <HintPath>$(HollowKnightRefs)\Mods\RandomizerMod\RandomizerMod.dll</HintPath>
+    </Reference>
+    <Reference Include="RandomizerMod" Condition="Exists('$(HollowKnightRefs)\Mods\Randomizer 4')">
+      <HintPath>$(HollowKnightRefs)\Mods\Randomizer 4\RandomizerMod.dll</HintPath>
+    </Reference>
   </ItemGroup>
   
   <Target Name="ClearReferenceCopyLocalPaths" AfterTargets="ResolveAssemblyReferences">

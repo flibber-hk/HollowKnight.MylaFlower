@@ -1,1 +1,5 @@
 Vasi
+Randomizer 4
+RandomizerCore
+ItemChanger
+MenuChanger

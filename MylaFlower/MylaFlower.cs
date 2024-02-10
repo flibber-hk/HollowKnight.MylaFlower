@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HutongGames.PlayMaker;
 using HutongGames.PlayMaker.Actions;
+using ItemChanger.Internal;
 using Modding;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,7 +11,7 @@ using Vasi;
 
 namespace MylaFlower
 {
-    public class MylaFlower : Mod, ILocalSettings<SaveSettings>
+    public class MylaFlower : Mod, ILocalSettings<SaveSettings>, IGlobalSettings<GlobalSettings>
     {
         internal static MylaFlower instance;
 
@@ -18,7 +19,11 @@ namespace MylaFlower
         public static SaveSettings LS { get; internal set; } = new();
         public void OnLoadLocal(SaveSettings s) => LS = s;
         public SaveSettings OnSaveLocal() => LS;
-        
+
+        public static GlobalSettings GS { get; internal set; } = new();
+        public void OnLoadGlobal(GlobalSettings s) => GS = s;
+        public GlobalSettings OnSaveGlobal() => GS;
+
         public MylaFlower() : base(null)
         {
             instance = this;
@@ -26,6 +31,11 @@ namespace MylaFlower
         }
 
         public override string GetVersion() => VersionUtil.GetVersion<MylaFlower>();
+
+        // Events used by the rando connection
+        
+        public static event Action OnGiveFlower;
+        
 
         public override void Initialize()
         {
@@ -42,6 +52,9 @@ namespace MylaFlower
 
             // Change sprite
             UnityEngine.SceneManagement.SceneManager.activeSceneChanged += ReplaceMylaSprite;
+
+            // Hook rando
+            RandoConnection.RandoInterop.Hook();
         }
 
         private void ReplaceMylaSprite(Scene _, Scene scene)
@@ -159,6 +172,7 @@ namespace MylaFlower
             {
                 LS.DeliveredFlower = true;
                 PlayerData.instance.SetBool(nameof(PlayerData.hasXunFlower), false);
+                OnGiveFlower?.Invoke();
             });
 
 
