@@ -54,7 +54,10 @@ namespace MylaFlower
             UnityEngine.SceneManagement.SceneManager.activeSceneChanged += ReplaceMylaSprite;
 
             // Hook rando
-            RandoConnection.RandoInterop.Hook();
+            if (ModHooks.GetMod("ItemChangerMod") is not null)
+            {
+                RandoConnection.RandoInteropManager.Hook();
+            }
         }
 
         private void ReplaceMylaSprite(Scene _, Scene scene)

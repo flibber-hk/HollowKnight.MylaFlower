@@ -11,34 +11,29 @@ using RandomizerMod.Settings;
 
 namespace MylaFlower.RandoConnection
 {
-    public static class RandoInterop
+    public static class RandoInteropManager
     {
-        public const string MylaFlowerLocation = "Myla_Flower";
-
-        public static RandoSettings RS
-        {
-            get => MylaFlower.GS.RandoSettings;
-            set => MylaFlower.GS.RandoSettings = value;
-        }
-
         public static void Hook()
         {
             if (ModHooks.GetMod("ItemChangerMod") is not null)
             {
-                HookItemChanger();
+                ICInterop.HookItemChanger();
             }
             if (ModHooks.GetMod("Randomizer 4") is not null)
             {
-                HookRandomizer();
+                RandoInterop.HookRandomizer();
             }
         }
+    }
 
-        private static void HookItemChanger()
+    public static class ICInterop
+    {
+        internal static void HookItemChanger()
         {
             AbstractLocation loc = new MylaFlowerLocation()
             {
                 sceneName = SceneNames.Crossroads_45,
-                name = MylaFlowerLocation,
+                name = RandoInterop.MylaFlowerLocation,
                 HintActive = true,
             };
 
@@ -54,8 +49,19 @@ namespace MylaFlower.RandoConnection
 
             Finder.DefineCustomLocation(loc);
         }
+    }
 
-        private static void HookRandomizer()
+    public static class RandoInterop
+    {
+        public const string MylaFlowerLocation = "Myla_Flower";
+
+        public static RandoSettings RS
+        {
+            get => MylaFlower.GS.RandoSettings;
+            set => MylaFlower.GS.RandoSettings = value;
+        }
+
+        internal static void HookRandomizer()
         {
             RequestBuilder.OnUpdate.Subscribe(-500f, SetupRefs);
             RequestBuilder.OnUpdate.Subscribe(0.1f, DefineRandoLocation);
