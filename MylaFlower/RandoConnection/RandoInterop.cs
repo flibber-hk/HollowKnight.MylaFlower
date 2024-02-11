@@ -37,7 +37,10 @@ namespace MylaFlower.RandoConnection
                 HintActive = true,
             };
 
-            InteropTag t = new();
+            InteropTag t = new()
+            {
+                Message = "RandoSupplementalMetadata"
+            };
             // I think this is better than making a new pool group
             t.Properties["PoolGroup"] = "MaskShards";
             t.Properties["ModSource"] = MylaFlower.instance.GetName();
@@ -45,6 +48,7 @@ namespace MylaFlower.RandoConnection
             {
                 (SceneNames.Crossroads_45, 52.9f, 3.4f)
             };
+            t.Properties["PinSpriteKey"] = "Extra.Flower";
             loc.AddTag(t);
 
             Finder.DefineCustomLocation(loc);
