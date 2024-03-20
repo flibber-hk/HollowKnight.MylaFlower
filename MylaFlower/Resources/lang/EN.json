@@ -1,14 +1,14 @@
 {
-	"FLOWER_OFFER": "...Bury my body, stabbed w-with nail<br>Darkness encroaching<br>I wait for Light, and Light approaches<br>A pale, fragile vessel<br>Offered to the shadow within me",
+	"FLOWER_OFFER": "...B-Bury my body, stabbed w-with nail...<br>...Darkness encroaching, I wait for Light...<br>Light approaches, with pale vessel of blight... <br>...A fragile vessel, o-offered to the shadow within me...",
 	"FLOWER_OFFER_YN": "Give the flower?",
-	"GIVEN_FLOWER": "Is this what was calling to me?<br>The aura quiets the voice<br>And breaks through the light and shade",
-	"NOT_GIVEN_FLOWER": "...It is for the best...m-my mind...fractured... can't touch...too pure...",
+	"GIVEN_FLOWER": "I-is this what was calling to me?<br>Its aura quiets the v-voice... <br>It breaks through the light and shade.",
+	"NOT_GIVEN_FLOWER": "...It's for the best...<br>M-my mind...fractured... <br>Can't touch...too pure...",
 	"CRAZY_DREAM": "C-can I take it ....DESTROY IT.... Is it offered....DON'T TOUCH IT...C-can I take it.... KILL IT....Is it offered.....DANGEROUS",
 	"GIVEN_DIALOGUE": [
-		"H-hello again, my friend! You just missed Schy, although I'm sure they're still here somewhere. Its like that with friends, isn't it?<br>They're always here, e-even when they're not.",
+		"H-hello again, my friend! You just missed Schy, although I'm sure they're still here somewhere. It's like that with friends, isn't it?<br>They're always here, e-even when they're not.",
 		"Oh hello there friend! Look, your present makes a w-wonderful headlamp. Now I can always have it with me. Thank you again!",
 		"Oh h-hello, friend! See, your gift emits w-wonderful energy. Now I can always have it with me. Thank you very much!"
 	],
 	"FLOWER_OFFER_YN_RANDO": "Give the flower, knowing you'll only get a lousy {0}?",
-	"ZOMBIE_DREAM_RANDO": "How is this {0} protecting me..?"
+	"ZOMBIE_DREAM_RANDO": "...This {0}... Is it protecting me...?"
 }
