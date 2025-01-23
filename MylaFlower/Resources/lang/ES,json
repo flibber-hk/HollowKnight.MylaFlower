@@ -1,0 +1,15 @@
+ {
+    "FLOWER_OFFER": "...Entierra mi cuerpo, apuñalado con un clavo<br>La oscuridad se cierne<br>Espero la Luz, y la Luz se acerca<br>Un pálido y frágil recipiente<br>Ofrecido a la sombra dentro de mí",
+    "FLOWER_OFFER_YN": "¿Ofrecer la flor?",
+    "GIVEN_FLOWER": "¿Es esto lo que me estaba llamando?<br>El aura silencia la voz<br>Y atraviesa la luz y la sombra",
+    "NOT_GIVEN_FLOWER": "...Es lo mejor... mi mente... fracturada... no puede tocar... demasiado pura...",
+    "CRAZY_DREAM": "¿P-puedo tomarlo...? ¡DESTRÚYELO!... ¿Se ofrece...? ¡NO LO TOQUES!... ¿P-puedo tomarlo...? ¡MÁTALO!... ¿Se ofrece...? ¡PELIGROSO!",
+    "GIVEN_DIALOGUE": [
+       "¡H-hola de nuevo, amigo! Justo te perdiste a Schy, aunque estoy seguro de que todavía está por aquí en alguna parte. Es así con los amigos, ¿no?<br>Siempre están aquí, i-incluso cuando no lo están.",
+       "¡Oh, hola amigo! Mira, tu regalo es una maravillosa lámpara para la cabeza. Ahora siempre puedo llevarla conmigo. ¡Gracias de nuevo!",
+       "¡Oh, h-hola, amigo! Mira, tu regalo emite una energía maravillosa. Ahora siempre puedo llevarla conmigo. ¡Muchas gracias!"
+    ],
+    "FLOWER_OFFER_YN_RANDO": "¿Dar la flor, sabiendo que solo obtendrás un miserable {0}?",
+    "ZOMBIE_DREAM_RANDO": "¿Cómo es que este {0} me está protegiendo...?"
+ }
+ 
